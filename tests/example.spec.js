@@ -19,28 +19,31 @@ test.beforeEach(async ({page}) => {
   await page.getByText('Войти').click()
   // скрин страницы лк
   await page.screenshot({ path: 'img/login.jpg' });
+  await expect(page).toHaveTitle('Плед, какао и волшебные карты')
 })
 
 test.describe('Click tabs', () =>  {
   test('should be succesfull click on tab collections', async ({ page }) => {
   await page.getByRole('tab', { name: 'Моя коллекция 0' }).click();
+  await expect(page).toHaveURL('https://samokat2023-test.smartheadtest.ru/?tab=collection');
   await page.screenshot({ path: 'img/collection.jpg' })
   })
 
   test('should be successfull click on tab cards and open 1 card',  async ({ page }) => {
-  await page.getByRole('tab', { name: 'Карточки' }).click();
+  await page.getByRole('tab', { name: 'Карточки' }).dblclick();
+  await expect(page).toHaveURL('https://samokat2023-test.smartheadtest.ru/?tab=cards');
   await page.screenshot({ path: 'img/cards.jpg' })
-  // await page.getByText('18').click();  получаем количество неоткрытых карточек
-  await page.getByRole('button', { name: 'ПЕРЕВЕРНУТЬ' }).click();
+  await page.getByRole('button', { name: 'ПЕРЕВЕРНУТЬ' }).dblclick();
   await page.screenshot({ path: 'img/opencard.jpg' })
-  // const countUnopenedCards = page.locator('//*[@id="__next"]/div/div[6]/header/div/div/div/div/button[2]/span[2]/span')
-  // expect(countUnopenedCards).toHaveText('1')
+  await expect(page.locator('//*[@id="__next"]/div/div/div/main/div[2]/div[1]/div/div/button[2]/span[1]/span')).toHaveText('Моя коллекция 1');
 })
 
 test('should be successfull click on tab game and start it',  async ({ page }) => {
   await page.getByRole('tab', { name: 'Игра' }).click();
+  await expect(page).toHaveURL('https://samokat2023-test.smartheadtest.ru/?tab=game');
   await page.screenshot({ path: 'img/game.jpg' })
-  // await page.getByText('10').click(); // количество открытых, но непросмотренных карточек
+  await page.getByRole('button', { name: 'Играть' }).click();
+  await page.getByRole('button', { name: 'Начать' }).click();
 
   })
 
@@ -60,6 +63,6 @@ test('should be successfull click on tab game and start it',  async ({ page }) =
 //   // Click the get started link.
 //   await getStarted.click();
   
-//   // Expects the URL to contain intro.
+  // Expects the URL to contain intro.
 //   await expect(page).toHaveURL(/.*intro/);
 // });
