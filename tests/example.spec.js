@@ -17,9 +17,9 @@ test.beforeEach(async ({page}) => {
   await fillPassword.fill(userPassword);
   // click button
   await page.getByText('Войти').click()
+  await expect(page).toHaveTitle('Плед, какао и волшебные карты')
   // скрин страницы лк
   await page.screenshot({ path: 'img/login.jpg' });
-  await expect(page).toHaveTitle('Плед, какао и волшебные карты')
 })
 
 test.describe('Click tabs', () =>  {
@@ -49,20 +49,5 @@ test('should be successfull click on tab game and start it',  async ({ page }) =
 
 });
 
-
-
-//   // Expect a title "to contain" a substring.
-//   await expect(page).toHaveTitle(/Playwright/);
-
-//   // create a locator
-//   const getStarted = page.getByRole('link', { name: 'Get started' });
-
 //   // Expect an attribute "to be strictly equal" to the value.
 //   await expect(getStarted).toHaveAttribute('href', '/docs/intro');
-
-//   // Click the get started link.
-//   await getStarted.click();
-  
-  // Expects the URL to contain intro.
-//   await expect(page).toHaveURL(/.*intro/);
-// });
