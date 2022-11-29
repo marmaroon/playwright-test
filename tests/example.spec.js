@@ -31,7 +31,7 @@ test.describe('Click tabs', () =>  {
 
   test('should be successfull click on tab cards and open 1 card',  async ({ page }) => {
   await page.getByRole('tab', { name: 'Карточки' }).dblclick();
-  await expect(page).toHaveURL('https://samokat2023-test.smartheadtest.ru/?tab=cards');
+  await expect(page).toHaveURL('https://samokat2023-test.smartheadtest.ru/');
   await page.screenshot({ path: 'img/cards.jpg' })
   await page.getByRole('button', { name: 'ПЕРЕВЕРНУТЬ' }).dblclick();
   await page.screenshot({ path: 'img/opencard.jpg' })
@@ -46,6 +46,13 @@ test('should be successfull click on tab game and start it',  async ({ page }) =
   await page.getByRole('button', { name: 'Начать' }).click();
 
   })
+
+test('should be unavailable level prize', async ({page}) => {
+  await page.goto('https://samokat2023-test.smartheadtest.ru/getPrize')
+  const textUnavailablePrizes = page.locator('//*[@id="__next"]/div/div/div/div[5]/p');
+  await expect(textUnavailablePrizes).toHaveText('Приз этого уровня недоступен или уже был получен');
+  await page.goBack();
+})
 
 });
 
