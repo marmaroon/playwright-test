@@ -49,9 +49,11 @@ test('should be successfull click on tab game and start it',  async ({ page }) =
 
 test('should be unavailable level prize', async ({page}) => {
   await page.goto('https://samokat2023-test.smartheadtest.ru/getPrize')
-  const textUnavailablePrizes = page.locator('//*[@id="__next"]/div/div/div/div[5]/p');
-  await expect(textUnavailablePrizes).toHaveText('Приз этого уровня недоступен или уже был получен');
-  await page.goBack();
+  await page.screenshot({ path: 'img/getprize.jpg' })
+  const textUnavailablePrizes = page.getByText('Приз этого уровня недоступен или уже был получен');
+  await expect(textUnavailablePrizes).toBeVisible();
+  
+  // await page.goBack();
 })
 
 });
