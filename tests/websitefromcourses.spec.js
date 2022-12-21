@@ -1,6 +1,6 @@
 const { test, expect, errors } = require('@playwright/test');
 
-test.only('should be correct UI controls', async ({ page }) => {
+test('should be correct UI controls', async ({ page }) => {
     await page.goto('https://rahulshettyacademy.com/loginpagePractise/')
     const userName = page.locator('#username')
     const signIn = page.locator('#signInBtn')
