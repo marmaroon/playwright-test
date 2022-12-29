@@ -1,17 +1,16 @@
-const { test, expect, errors } = require('@playwright/test');
+const { test, expect, request, errors } = require('@playwright/test');
 
-const phoneNumber = '9278626209';
-const userPassword = '123';
+const loginPayLoad = {
+  "phone": "72414141414"
+};
 
-test('should be error while auth',  async ({ page }) => {
-  await page.goto('https://samokat2023-test.smartheadtest.ru/');
-  await page.getByRole('button', { name: 'Ок' }).click();
-  const authButton = page.getByText('Войти').click()
-  const fillMobilePhone = page.getByPlaceholder('+7 9XX XXX-XX-XX');
-  await fillMobilePhone.fill(phoneNumber);
-  await page.getByText('Дальше').click()
-  const fillPassword = page.getByPlaceholder('Пароль');
-  await fillPassword.fill(userPassword);
-  await page.getByText('Войти').click()
-  await expect(page.locator('[role = "presentation"]')).toContainText('Неверный логин или пароль')
+test('should be alert of ending', async () => {
+  const apiContext = await request.newContext();
+  const loginResponse = await apiContext.post('https://samokat2023-test.smartheadtest.ru/api/authentication/check-phone', {data:loginPayLoad});
+  // 400 status
+  expect((loginResponse).status(400)).toBeTruthy();
+  const loginResponseJson = await loginResponse.json();
+  const tokenValue = loginResponseJson.errorContent;
+  console.log(tokenValue);
+
 })

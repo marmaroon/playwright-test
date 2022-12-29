@@ -1,17 +1,27 @@
-const { test, expect, errors } = require('@playwright/test');
+const { test, expect, request, errors } = require('@playwright/test');
+const loginPayLoad = {userEmail: "anshika@gmail.com", userPassword: "Iamking@000"};
+let token;
 
-test.beforeAll
+test.beforeAll(async () => {
+    const apiContext = await request.newContext();
+    const loginResponse = await apiContext.post('https://rahulshettyacademy.com/api/ecom/auth/login', {data:loginPayLoad});
+    // 200 status
+    expect(loginResponse.ok()).toBeTruthy();
+    const loginResponseJson = await loginResponse.json();
+    const token = loginResponseJson.token;
+    console.log(token);
+})
 
-test('Client App login', async({page}) =>
+test('Place the order', async({page}) =>
 {
-    const products = page.locator('.card-body');
+    page.addInitScript(value => {
+        window.localStorage.setItem('token',value);
+    }, token ); // the first is func and second is a parameter
+    
+    const email = '';
     const productName = 'zara coat 3'
-    const email = 'anshika@gmail.com';
-    await page.goto('https://rahulshettyacademy.com/client');
-    await page.locator('#userEmail').fill('anshika@gmail.com');
-    await page.locator('#userPassword').type('Iamking@000');
-    await page.locator('[value="Login"]').click();
-    await page.waitForLoadState('networkidle');
+    await page.goto('https://rahulshettyacademy.com/client/');
+    const products = page.locator('.card-body');
     const titles = await page.locator('.card-body b').allTextContents();
     console.log(titles);
     const countProducts = await products.count();  //how much elements in this selector
@@ -24,7 +34,7 @@ test('Client App login', async({page}) =>
         }
     }
     await page.locator('[routerlink*="cart"]').click();
-    //await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('networkidle');
     await page.locator('div li').first().waitFor(); //loading this items on the page tag + text
     const addedCartItem = await page.locator('h3:has-text("zara coat 3")').isVisible(); // add text selector (sudo-class), есть в доке Playwright #text-selector
     expect(addedCartItem).toBeTruthy();
