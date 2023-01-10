@@ -1,29 +1,25 @@
 const { test, expect, errors } = require('@playwright/test');
+const {LoginPage} = require('../pageobjects/LoginPage');
+const {DashboardPage} = require('../pageobjects/DashboardPage');
 
 test('Client App login', async({page}) =>
 {
     // js file-. Login js, Dashboard js, 
-    const products = page.locator('.card-body');
     const productName = 'zara coat 3'
-    const email = 'anshika@gmail.com';
-    await page.goto('https://rahulshettyacademy.com/client');
-    await page.locator('#userEmail').fill('anshika@gmail.com');
-    await page.locator('#userPassword').type('Iamking@000');
-    await page.locator('[value="Login"]').click();
-    await page.waitForLoadState('networkidle');
-    const titles = await page.locator('.card-body b').allTextContents();
-    console.log(titles);
-    const countProducts = await products.count();  //how much elements in this selector
+    const username = 'anshika@gmail.com';
+    const password = 'Iamking@000'
 
-    for (let i = 0; i < countProducts; ++i) {
-        if(await products.nth(i).locator('b').textContent() === productName) {
-            // add to cart
-            await products.nth(i).locator('text= Add To Cart').click();
-            break;
-        }
-    }
-    await page.locator('[routerlink*="cart"]').click();
-    //await page.waitForLoadState('networkidle');
+    // add methods for login in other file
+    const loginPage = new LoginPage(page);
+    await loginPage.goTo();
+    await loginPage.validLogin(username, password); //отдельно вызываем все функции, принимающие в себя аргументы
+    
+    // method for search products and add it in cart
+    const dashboardPage = new DashboardPage(page);
+    await dashboardPage.searchProductAddCart(productName);
+    await dashboardPage.navigateToCart()
+
+
     await page.locator('div li').first().waitFor(); //loading this items on the page tag + text
     const addedCartItem = await page.locator('h3:has-text("zara coat 3")').isVisible(); // add text selector (sudo-class), есть в доке Playwright #text-selector
     expect(addedCartItem).toBeTruthy();
@@ -43,7 +39,7 @@ test('Client App login', async({page}) =>
         
     }
     // assert correct email and subnit the order
-    await expect(page.locator('text=anshika@gmail.com')).toHaveText(email);
+    await expect(page.locator('text=anshika@gmail.com')).toHaveText(username);
     await page.locator('.action__submit').click();
     // assert text thanks for the order
     await expect(page.locator('.hero-primary')).toHaveText(' Thankyou for the order. ');
@@ -64,15 +60,6 @@ test('Client App login', async({page}) =>
         }        
     }
 
-
     const orderIdDetails = await page.locator('.col-text').textContent();
     expect(orderId.includes(orderIdDetails)).toBeTruthy();
-
-
-
-
-
-
-
-
 })
