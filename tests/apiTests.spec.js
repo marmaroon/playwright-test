@@ -8,8 +8,7 @@ let response;
 test.beforeAll(async () => {
     const apiContext = await request.newContext();
     const apiUtils = new APIUtils(apiContext, loginPayLoad);
-    response = await apiUtils.createOrder(orderPayLoad)
-
+    response = await apiUtils.createOrder(orderPayLoad);
 });
 
 test('Place the order', async({page}) =>
