@@ -28,9 +28,9 @@ const config = {
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 2 : 0, // сколько раз перепробовать зафейленные тесты
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 1 : undefined, // сколько воркеров будет (браузеры, девайсы и т.д.)
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -42,7 +42,13 @@ const config = {
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on', //'retain-on-failure', 'off'
-    // screenshot: 'on',
+    ignoreHTTPSErrors: true,
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
+    //permissions: ['geolocation'],
+    //...devices['Desktop Chrome'],
+    //viewport: {width: 720, height:720},
+    //
 
   },
 
@@ -94,6 +100,7 @@ const config = {
       name: 'Google Chrome',
       use: {
         channel: 'chrome',
+        // viewport: {width: 720, height:720},
       },
     },
   ],
