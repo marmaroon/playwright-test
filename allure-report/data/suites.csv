@@ -1,0 +1,7 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"failed","Thu Jan 19 14:34:21 MSK 2023","Thu Jan 19 14:34:21 MSK 2023","36","webkit","ClientAppPO.spec.js","","","","Client App login for zara coat 3",""
+"passed","Thu Jan 19 14:35:01 MSK 2023","Thu Jan 19 14:35:13 MSK 2023","12045","Google Chrome","ClientAppPO.spec.js","","","","Client App login for adidas original",""
+"passed","Thu Jan 19 14:35:03 MSK 2023","Thu Jan 19 14:35:13 MSK 2023","10316","Google Chrome","ClientAppPO.spec.js","","","","Client App login",""
+"failed","Thu Jan 19 14:34:21 MSK 2023","Thu Jan 19 14:34:21 MSK 2023","39","webkit","ClientAppPO.spec.js","","","","Client App login for adidas original",""
+"failed","Thu Jan 19 14:34:21 MSK 2023","Thu Jan 19 14:34:21 MSK 2023","56","webkit","ClientAppPO.spec.js","","","","Client App login",""
+"broken","Thu Jan 19 14:34:57 MSK 2023","Thu Jan 19 14:35:33 MSK 2023","35956","Google Chrome","ClientAppPO.spec.js","","","","Client App login for zara coat 3",""

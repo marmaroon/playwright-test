@@ -28,9 +28,9 @@ const config = {
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0, // сколько раз перепробовать зафейленные тесты
+  retries: 1, // сколько раз перепробовать зафейленные тесты
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined, // сколько воркеров будет (браузеры, девайсы и т.д.)
+  //workers: 1, // сколько воркеров будет, т.е. если у нас параллельно 5 тестов, то можем изменить здесь на 1 и каждый тест будет запускать после предыдущего, если 2, то 2 параллельно и остальные будут ждать пока они завершат
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
