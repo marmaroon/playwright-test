@@ -4,7 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx playwright test tests/apiTests.spec.js --headed"
+    "test": "npx playwright test tests/apiTests.spec.js --headed",
+    "regression": "npx playwright test",
+    "webTests": "npx playwright test --grep @Web",
+    "APITests": "npx playwright test --grep @API",
+    "allureTesting": "npx playwright test ClientAppPO.spec.js --reporter=line,allure-playwright",
+    "alluregenreport": "allure generate ./allure-results --clean",
+    "allureopenreport": "allure open ./allure-report",
+    "onlysafarytest": "npx playwright test ClientAppPO.spec.js --config playwright.config1.js --project='safari execution'"
   },
   "keywords": [],
   "author": "",

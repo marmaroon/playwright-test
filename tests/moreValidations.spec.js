@@ -1,6 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
-test('Popup validations', async({page}) => {
+//test.describe.configure({mode: 'parallel'})
+test('@Web Popup validations', async({page}) => {
 
 await page.goto('https://rahulshettyacademy.com/AutomationPractice/');
 // await page.goto('https://google.com');
@@ -32,7 +33,7 @@ test('Screenshot & Visual validations', async ({page})=>{
     await page.locator('#confirmbtn').click();
 })
 
-test.only('Compare screenshots', async({page}) => {
+test('Compare screenshots', async({page}) => {
     await page.goto('https://flightaware.com/');
     expect(await page.screenshot()).toMatchSnapshot('landing.png');
 

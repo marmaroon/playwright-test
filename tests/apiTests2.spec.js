@@ -84,7 +84,7 @@ test('Client App login', async() =>
 
 })
 
-test('Test case 2', async() =>
+test(`@API Test case 2`, async() =>
 {
     const productName = 'zara coat 3'
     const email = 'anshika@gmail.com';

@@ -31,7 +31,7 @@ test('@Web Browser Context-Validating Error login', async ({browser})=>
 
             page.waitForNavigation(),
                signIn.click(),
-       ]
+       ] // promise
    );  
    console.log(await cardTitles.first().textContent());
   console.log(await cardTitles.nth(1).textContent());
