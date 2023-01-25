@@ -17,8 +17,8 @@ jobs:
       run: npm ci
     - name: Install Playwright
       run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
+    - name: Run Playwright tests with allure
+      run: npm run allure
     - uses: actions/upload-artifact@v2
       if: always()
       with:
